@@ -1,13 +1,8 @@
-import { useNode, useEditor } from '@craftjs/core';
-import { ROOT_NODE } from '@craftjs/utils';
-import React, { useEffect, useRef, useCallback } from 'react';
-import ReactDOM from 'react-dom';
-import { styled } from 'styled-components';
-
-import ArrowUp from '@/public/icons/arrow-up.svg';
-import Delete from '@/public/icons/delete.svg';
-import Move from '@/public/icons/move.svg';
-
+import { useNode, useEditor } from "@craftjs/core";
+import { ROOT_NODE } from "@craftjs/utils";
+import React, { useEffect, useRef, useCallback } from "react";
+import ReactDOM from "react-dom";
+import { styled } from "styled-components";
 const IndicatorDiv = styled.div`
   height: 30px;
   margin-top: -29px;
@@ -32,11 +27,43 @@ const Btn = styled.a`
     left: -50%;
   }
 `;
-
+const ArrowUp = () => {
+  return (
+    <svg viewBox="0 0 24 24">
+      <title>Arrow Up</title>
+      <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"></path>
+    </svg>
+  );
+};
+const Move = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+      <title>S Move 18 N</title>
+      <rect id="Canvas" fill="#ff13dc" opacity="0" width="18" height="18" />
+      <path
+        className="a"
+        style={{ fill: "#707070" }}
+        d="M17,9a.25.25,0,0,0-.0565-.158L16,8.0145V8h-.0165L14.927,7.0735A.245.245,0,0,0,14.75,7a.25.25,0,0,0-.25.25V8H10V3.5h.75A.25.25,0,0,0,11,3.25a.24448.24448,0,0,0-.0735-.175L10,2.0165V2H9.9855L9.158,1.0565a.25.25,0,0,0-.316,0L8.0145,2H8v.0165L7.0735,3.073A.24449.24449,0,0,0,7,3.25a.25.25,0,0,0,.25.25H8V8H3.5V7.25A.25.25,0,0,0,3.25,7a.245.245,0,0,0-.175.0735L2.0165,8H2v.0145l-.9435.8275a.25.25,0,0,0,0,.316L2,9.9855V10h.0165l1.0565.926A.24552.24552,0,0,0,3.25,11a.25.25,0,0,0,.25-.25V10H8v4.5H7.25a.25.25,0,0,0-.25.25.24352.24352,0,0,0,.0735.175L8,15.9835V16h.0145l.8275.9435a.25.25,0,0,0,.316,0L9.9855,16H10v-.0165l.9265-1.057A.24349.24349,0,0,0,11,14.75a.25.25,0,0,0-.25-.25H10V10h4.5v.75a.25.25,0,0,0,.25.25.24549.24549,0,0,0,.175-.074L15.9835,10H16V9.9855l.9435-.8275A.25.25,0,0,0,17,9Z"
+      />
+    </svg>
+  );
+};
+const Delete = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+      <title>S Delete 18 N</title>
+      <rect id="Canvas" fill="#ff13dc" opacity="0" />
+      <path
+        className="a"
+        d="M15.75,3H12V2a1,1,0,0,0-1-1H6A1,1,0,0,0,5,2V3H1.25A.25.25,0,0,0,1,3.25v.5A.25.25,0,0,0,1.25,4h1L3.4565,16.55a.5.5,0,0,0,.5.45H13.046a.5.5,0,0,0,.5-.45L14.75,4h1A.25.25,0,0,0,16,3.75v-.5A.25.25,0,0,0,15.75,3ZM5.5325,14.5a.5.5,0,0,1-.53245-.46529L5,14.034l-.5355-8a.50112.50112,0,0,1,1-.067l.5355,8a.5.5,0,0,1-.46486.53283ZM9,14a.5.5,0,0,1-1,0V6A.5.5,0,0,1,9,6ZM11,3H6V2h5Zm1,11.034a.50112.50112,0,0,1-1-.067l.5355-8a.50112.50112,0,1,1,1,.067Z"
+      />
+    </svg>
+  );
+};
 export const RenderNode = ({ render }) => {
   const { id } = useNode();
   const { actions, query, isActive } = useEditor((_, query) => ({
-    isActive: query.getEvent('selected').contains(id),
+    isActive: query.getEvent("selected").contains(id),
   }));
   const {
     isHover,
@@ -60,8 +87,8 @@ export const RenderNode = ({ render }) => {
 
   useEffect(() => {
     if (dom) {
-      if (isActive || isHover) dom.classList.add('component-selected');
-      else dom.classList.remove('component-selected');
+      if (isActive || isHover) dom.classList.add("component-selected");
+      else dom.classList.remove("component-selected");
     }
   }, [dom, isActive, isHover]);
 
@@ -86,13 +113,13 @@ export const RenderNode = ({ render }) => {
 
   useEffect(() => {
     document
-      .querySelector('.craftjs-renderer')
-      .addEventListener('scroll', scroll);
+      .querySelector(".craftjs-renderer")
+      .addEventListener("scroll", scroll);
 
     return () => {
       document
-        .querySelector('.craftjs-renderer')
-        .removeEventListener('scroll', scroll);
+        .querySelector(".craftjs-renderer")
+        .removeEventListener("scroll", scroll);
     };
   }, [scroll]);
 
@@ -112,7 +139,7 @@ export const RenderNode = ({ render }) => {
               <h2 className="flex-1 mr-4">{name}</h2>
               {moveable ? (
                 <Btn className="mr-2 cursor-move" ref={drag}>
-                  <img src={Move} alt="Move" />
+                  <Move />
                 </Btn>
               ) : null}
               {id !== ROOT_NODE && (
@@ -122,7 +149,7 @@ export const RenderNode = ({ render }) => {
                     actions.selectNode(parent);
                   }}
                 >
-                  <img src={ArrowUp} alt="Move" />
+                  <ArrowUp />
                 </Btn>
               )}
               {deletable ? (
@@ -133,11 +160,11 @@ export const RenderNode = ({ render }) => {
                     actions.delete(id);
                   }}
                 >
-                  <img src={Delete} alt="Delete" />
+                  <Delete />
                 </Btn>
               ) : null}
             </IndicatorDiv>,
-            document.querySelector('.page-container')
+            document.querySelector(".page-container")
           )
         : null}
       {render}
