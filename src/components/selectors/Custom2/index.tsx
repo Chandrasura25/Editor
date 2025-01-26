@@ -1,5 +1,4 @@
 import { Element, useNode } from '@craftjs/core';
-import React from 'react';
 
 import { Container } from '../Container';
 import { Video } from '../Video';
