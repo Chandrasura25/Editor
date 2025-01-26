@@ -1,16 +1,15 @@
 import React from 'react';
-
 import { ToolbarSection, ToolbarItem } from '../../editor';
 
 export const VideoSettings = () => {
   return (
     <React.Fragment>
-      <ToolbarSection title="Youtube">
+      <ToolbarSection title="Video">
         <ToolbarItem
           full={true}
-          propKey="videoId"
+          propKey="videoSrc"
           type="text"
-          label="Video ID"
+          label="Video Source"
         />
       </ToolbarSection>
     </React.Fragment>
